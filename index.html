@@ -3,11 +3,12 @@
 <head>
     <script src="./script.js" defer ></script>
     <link rel="stylesheet" href="style.css">
-  <title> Weather</title>
+  <title>Weather</title>
   <style>
+    /* Add some basic styling */
     body {
       font-family: Arial, sans-serif;
-      background-color: #5362b9, #d1d5e8, #f0f02d;
+      background-color: #1834b0;
       margin: 0;
       padding: 0;
     }
@@ -51,8 +52,11 @@
   </style>
 </head>
 <body>
+    <header>
+      <center> <img src="file:C:\Users\yagom\Downloads\Weather-of-the-Day.jpg.jpg " alt="Weather Around The World"></center>
+    </header>
   <div class="container">
-    <h1>Worldwide Weather</h1>
+    <h1>Weather App</h1>
     <div class="search-container">
       <input type="text" id="search-input" class="search-input" placeholder="Enter city name">
       <button id="search-btn">Search</button>
@@ -81,13 +85,16 @@
     }
 
     function getWeather(city) {
-      ffetch("https://www.aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString=KDE")
-      .then(response => response.json())
-      .then(data => console.log(data));
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=94f64ef5fab0b721c754f9bf1fbb8703
+&units=metric`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.cod === '404') {
+            showError(data.message);
           } else {
             showWeather(data);
           }
-        
+        })
         .catch(error => {
           console.log('Error:', error);
           showError('Failed to retrieve weather data. Please try again later.');
