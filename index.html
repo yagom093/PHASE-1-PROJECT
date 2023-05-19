@@ -81,15 +81,13 @@
     }
 
     function getWeather(city) {
-      fetch(`https://https://api.opensensemap.org/boxes?model=homeWifi.https://www.aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString=KDE.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&https://www.aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString=KDE=1.25&stationString=KDE`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.cod === '404') {
-            showError(data.message);
+      ffetch("https://www.aviationweather.gov/adds/dataserver_current/httpparam?datasource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=1.25&stationString=KDE")
+      .then(response => response.json())
+      .then(data => console.log(data));
           } else {
             showWeather(data);
           }
-        })
+        
         .catch(error => {
           console.log('Error:', error);
           showError('Failed to retrieve weather data. Please try again later.');
