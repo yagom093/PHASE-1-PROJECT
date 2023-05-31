@@ -1,4 +1,4 @@
-# Title: Building a Weather App with JavaScript: Exploring API Integration and DOM Manipulation
+# Title:Building a Weather App with JavaScript: Exploring API Integration and DOM Manipulation
 
 ## Introduction: In this blog post, we will discuss the process of building a weather app using JavaScript. We will dive into key concepts such as API integration and DOM manipulation to create a functional weather website.
 
@@ -12,4 +12,4 @@
 
 ## Displaying Weather Information: In the showWeather() function, we create DOM elements to represent the weather information. We create a weather card div and populate it with the city name, temperature, and humidity. The temperature value is converted from Kelvin to Celsius by subtracting 273.15. Finally, we append the weather card to the weather-cards div for display.
 
-#Conclusion: By combining API integration and DOM manipulation techniques, we have successfully built a weather website using JavaScript. This website allows users to search for weather information based on a city name and presents the data in a visually appealing manner. With further enhancements and additional features, this weather app can be expanded to provide even more comprehensive weather forecasts and functionalities.
+# Conclusion: By combining API integration and DOM manipulation techniques, we have successfully built a weather website using JavaScript. This website allows users to search for weather information based on a city name and presents the data in a visually appealing manner. With further enhancements and additional features, this weather app can be expanded to provide even more comprehensive weather forecasts and functionalities.
