@@ -1,130 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="./script.js" defer ></script>
+    <script src="./script.js"> </script>
     <link rel="stylesheet" href="style.css">
-  <title>Weather</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1834b0;
-      margin: 0;
-      padding: 0;
-    }
+    <title>Weather</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1834b0;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .search-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-    .search-input {
-      padding: 8px;
-      font-size: 16px;
-      width: 300px;
-    }
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            width: 300px;
+        }
 
-    .weather-card {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+        .weather-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-    .weather-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+        .weather-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-    .weather-info span {
-      font-size: 16px;
-    }
-  </style>
+        .weather-info span {
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-      <center> <img src="file:C:\Users\yagom\Downloads\Weather-of-the-Day.jpg.jpg " alt="Weather Around The World"></center>
-    </header>
-  <div class="container">
+<header>
+    <center> <img src="Weather-of-the-Day.jpg" alt="Weather Around The World"></center>
+</header>
+<div class="container">
     <h1>Weather App</h1>
     <div class="search-container">
-      <input type="text" id="search-input" class="search-input" placeholder="Enter city name">
-      <button id="search-btn">Search</button>
+        <input type="text" id="search-input" class="search-input" placeholder="Enter city name">
+        <button id="search-btn">Search</button>
     </div>
     <div id="weather-cards"></div>
-  </div>
+</div>
 
-  <script>
+<script>
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-btn');
     const weatherCards = document.getElementById('weather-cards');
 
     searchButton.addEventListener('click', searchWeather);
     searchInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        searchWeather();
-      }
+        if (e.key === 'Enter') {
+            searchWeather();
+        }
     });
 
     function searchWeather() {
-      const city = searchInput.value.trim();
-      if (city !== '') {
-        getWeather(city);
-        searchInput.value = '';
-      }
+        const city = searchInput.value.trim();
+        if (city !== '') {
+            getWeather(city);
+            searchInput.value = '';
+        }
     }
 
     function getWeather(city) {
-      fetch("http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={94f64ef5fab0b721c754f9bf1fbb8703")
-        .then(response => response.json())
-        .then(data => {
-          if (data.cod === '404') {
-            showError(data.message);
-          } else {
-            showWeather(data);
-          }
-        })
-        .catch(error => {
-          console.log('Error:', error);
-          showError('Failed to retrieve weather data. Please try again later.');
-        });
+        const apiKey = '94f64ef5fab0b721c754f9bf1fbb8703'; // OpenWeatherMap API key
+        const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.cod === '404') {
+                    showError(data.message);
+                } else {
+                    showWeather(data);
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                showError('Failed to retrieve weather data. Please try again later.');
+            });
     }
 
     function showError(message) {
-      weatherCards.innerHTML = `<div class="weather-card"><p>${message}</p></div>`;
+        weatherCards.innerHTML = `<div class="weather-card"><p>${message}</p></div>`;
     }
 
     function showWeather(data) {
-      const weatherCard = document.createElement('div');
-      weatherCard.classList.add('weather-card');
+        const weatherCard = document.createElement('div');
+        weatherCard.classList.add('weather-card');
 
-      const cityName = document.createElement('h2');
-      cityName.textContent = data.name;
-      weatherCard.appendChild(cityName);
+        const cityName = document.createElement('h2');
+        cityName.textContent = data.name;
+        weatherCard.appendChild(cityName);
 
-      const weatherInfo = document.createElement('div');
-      weatherInfo.classList.add('weather-info');
+        const weatherInfo = document.createElement('div');
+        weatherInfo.classList.add('weather-info');
 
-      const temperature = document.createElement('span');
-      temperature.textContent = `Temperature: ${data.main.temp}°C`;
-      weatherInfo.appendChild(temperature);
+        const temperature = document.createElement('span');
+        temperature.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
+        weatherInfo.appendChild(temperature);
 
-      const humidity = document.createElement('span');
-      humidity.textContent = `Humidity: ${data.main.humidity}%`;
-      weatherInfo.appendChild(humidity);
+        const humidity = document.createElement('span');
+        humidity.textContent = `Humidity: ${data.main.humidity}%`;
+        weatherInfo.appendChild(humidity);
 
-      weatherCard.appendChild(weatherInfo);
-      weatherCards.appendChild(weatherCard);
+        weatherCard.appendChild(weatherInfo);
+        weatherCards.appendChild(weatherCard);
     }
-  </script>
+</script>
 </body>
 </html>
