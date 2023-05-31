@@ -17,6 +17,13 @@ The app will fetch weather data from the OpenWeatherMap API for the specified ci
 The retrieved weather information, including temperature and humidity, will be displayed in a weather card on the page.
 You can perform multiple searches by entering different city names.
 
+## Retrieving your own API Key
+Go to https://openweathermap.org/
+Click the 'Sign In' tab on the top right corner of page.
+Under the 'Sign In To Your Account' section click 'Create an Account'; which is completely free.
+Once you've created your account and logged in, Click on your name at the top right corner of the page and click on 'My API keys'.
+Once the page has loaded you will be able to generate your API key and implement it on your own page.
+
 ## Contributor's Guide
 Contributions to the Weather App are welcome. If you'd like to contribute, please follow these steps:
 
